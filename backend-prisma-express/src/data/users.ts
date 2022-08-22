@@ -14,6 +14,19 @@ const Users = {
     async newPostId(user: User) {
         return await Users.getPostCount(user);
     },
+    async getPosts(user: User, skip?: number, count?: number) {
+        if (count === undefined || count < 0) {
+            return await prisma.post.findMany({
+                where: { userid: user.id },
+                skip: skip
+            });
+        }
+        return await prisma.post.findMany({
+            where: { userid: user.id },
+            take: count,
+            skip: skip
+        });
+    },
 }
 
 export default Users;

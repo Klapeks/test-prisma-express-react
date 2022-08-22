@@ -14,6 +14,13 @@ router.get("/:userid", async (req, res) => {
         res.status(404).send("User not found");
         return;
     }
+    if (req.query) {
+        const skip = req.query.skip ?? 0;
+        const limit = req.query.limit ?? -1;
+        // +"123" == 123
+        res.status(200).send(await Users.getPosts(user, +skip, +limit))
+        return;
+    }
     res.status(200).send(await prisma.post.findMany({
         where: {user: user}
     }));
