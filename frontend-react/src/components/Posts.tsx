@@ -22,7 +22,7 @@ function NewPost(props: {user: User, addPost: (post: Post) => void}) {
             addPost(post);
         }}>
             <input type="text" placeholder="What's new?" id='post'/>
-            <input type='submit' value='Post' />
+            <input type='submit' value='Post' className='submit' />
         </form>
     );
 }
@@ -41,15 +41,20 @@ function Posts(props: {user?: User}) {
         });
     }, [user, setPosts]);
 
+    if (!user) {
+        return (
+            <div className="posts">Choose account</div>
+        );
+    }
     if (!posts){
         return (<div className="posts">Loading....</div>);
     }
     if (posts.length===0){
-        return (<div className="posts">No posts</div>);
-    }
-    if (!user) {
         return (
-            <div className="posts">Choose account</div>
+            <div className="posts">
+                {user && <NewPost user={user} addPost={addPost}/>}
+                <h3 className='nopost'>No posts</h3>
+            </div>
         );
     }
     function addPost(post: Post) {
@@ -67,7 +72,7 @@ function Posts(props: {user?: User}) {
         if (!user) return;
         if (!posts) return;
         let narr: Post[] = [...posts];
-        narr = narr.filter((p, _) => post.id!=p.id);
+        narr = narr.filter((p, _) => post.id!==p.id);
         setPosts(narr);
         cache.set(user.id, narr);
 
@@ -76,7 +81,6 @@ function Posts(props: {user?: User}) {
     return (
         <div className="posts">
             {user && <NewPost user={user} addPost={addPost}/>}
-            {posts.length}
             {posts.map((post, i) => (
                 <div key={i} className="post">
                     <p>{post.text}</p>

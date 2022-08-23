@@ -15,7 +15,7 @@ interface Post {
 
 const Data = {
     async getUser(id: number): Promise<User|undefined> {
-        if (id === NaN || id === undefined) return undefined;
+        if (Number.isNaN(id) || id===undefined) return undefined;
         return (await axios.get(`/api/v1/users/${id}`)).data;
     },
     async getPosts(user: User): Promise<Array<Post>> {

@@ -1,6 +1,4 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { User, useUser } from '../Data';
+import { User } from '../Data';
 import './Profile.scss'
 
 function Profile(props: {user: User | undefined}) {

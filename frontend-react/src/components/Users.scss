@@ -1,11 +1,19 @@
 
 .users {
     width: 70px;
-    background-color: red;
+    background-color: rgb(72, 56, 143);
     display: flex;
     flex-direction: column;
+    .separate {
+        height: 2px;
+        width: 50%;
+        background-color: #666;
+        margin: 2px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
-.users .avatar {
+.users .icon {
     width: 60px;
     height: 60px;
     margin: 5px;
@@ -16,6 +24,14 @@
     // justify-content: center;
     align-items: center;
     cursor: pointer;
+    p.img {
+        // background-color: red;
+        width: 100%;
+        text-align: center;
+        font-size: 40px;
+        margin-top: -5px;
+        user-select: none;
+    }
     .name {
         user-select: none;
         display: none;
@@ -43,6 +59,12 @@
     &:hover { border-radius: 40%; }
     &:active { border-radius: 35% }
     &.active { border-radius: 30% }
+
+    &.half { border-radius: 40% }
+    &.half:hover { border-radius: 35% }
+    &.half:active { border-radius: 30% }
+
     &:hover .name {display: block;}
     .name:hover {display: none;}
+    
 }
