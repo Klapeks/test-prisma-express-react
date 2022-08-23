@@ -8,19 +8,26 @@ import { User } from './Data';
 
 function App() {
     const [selectedUser, selectUser] = useState<User>();
+    const [users, setUsers] = useState<Array<User>>([]);
     const newUserWindowRef = useRef<HTMLDivElement>(null);
+
+    function addUser(user: User) {
+        setUsers([...users, user]);
+    }
+
     function openUserCreateMenu() {
         if (!newUserWindowRef) return;
         newUserWindowRef.current?.classList.add("activate");
+        setTimeout(() => newUserWindowRef.current?.classList.add("show"));
     }
     return (
         <div className="container">
-            <Users {...{selectedUser, selectUser, openUserCreateMenu}}/>
+            <Users {...{selectedUser, selectUser, openUserCreateMenu, users, setUsers}}/>
             <div className='right'>
                 <Profile user={selectedUser}/>
                 <Posts user={selectedUser}/>
             </div>
-            <NewUser refr={newUserWindowRef}/>
+            <NewUser refr={newUserWindowRef} {...{addUser}}/>
         </div>
     );
 }

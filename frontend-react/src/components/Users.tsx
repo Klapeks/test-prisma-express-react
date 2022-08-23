@@ -21,20 +21,25 @@ function Icon(props: {icon?: any, hover: string, className: string, onClick?: ()
         </div>
     )
 }
-
-function Users(props: {selectedUser: User|undefined, selectUser: (user: User) => void, openUserCreateMenu: ()=>void}) {
+interface UsersProps {
+    selectedUser: User|undefined,
+    selectUser: (user: User) => void,
+    openUserCreateMenu: ()=>void,
+    users: Array<User>,
+    setUsers: (user: Array<User>) => void
+}
+function Users(props: UsersProps) {
     const {selectedUser, selectUser} = props;
-    const [users, setUsers] = useState<Array<User>>([]);
     useEffect(() => {
         axios.get("/api/v1/users").then((resp) => {
-            setUsers(resp.data);
+            props.setUsers(resp.data);
         })
-    }, [setUsers])
+    }, [props.setUsers])
     return (
         <div className="users">
             <Icon icon="✚" className="half" hover="Create account" onClick={props.openUserCreateMenu}/>
             <div className='separate'></div>
-            {users.map((user, i) => (
+            {props.users.map((user, i) => (
                 <Avatar key={i} user={user}
                     active={user.id===selectedUser?.id}
                     onClick={() => selectUser(user)}

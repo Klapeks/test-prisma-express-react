@@ -43,14 +43,8 @@ function Posts(props: {user?: User}) {
         });
     }, [user, setPosts]);
 
-    if (!user) {
-        return (
-            <div className="posts"><h3>Choose account</h3></div>
-        );
-    }
-    if (!posts){
-        return (<div className="posts"><h3>Loading....</h3></div>);
-    }
+    if (!user) return (<div className="posts"><h3>Choose account</h3></div>);
+    if (!posts) return (<div className="posts"><h3>Loading....</h3></div>);
     if (posts.length===0){
         return (
             <div className="posts">

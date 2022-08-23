@@ -7,6 +7,10 @@ interface User {
     name: string,
     lastPostId: number
 }
+interface MinUser {
+    login: string,
+    name: string
+}
 interface Post {
     id: number,
     text: string
@@ -21,6 +25,9 @@ const Data = {
     async getPosts(user: User): Promise<Array<Post>> {
         if (!user) return [];
         return (await axios.get(`/api/v1/posts/${user.id}`)).data;
+    },
+    async createUser(user: MinUser): Promise<User> {
+        return (await axios.post("/api/v1/users/create", user)).data;
     }
 }
 function useUser(id: number): User | undefined {

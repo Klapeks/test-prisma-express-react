@@ -18,4 +18,17 @@ router.get("/:id", async (req, res) => {
     res.status(200).send(user);
 })
 
+router.post("/create", async (req, res) => {
+    const {login, name} = req.body;
+    if (!login) {
+        res.status(404).send("Login not found");
+        return;
+    }
+    if (!name) {
+        res.status(404).send("Name not found");
+        return;
+    }
+    res.status(200).send(await Users.createUser({login, name}));
+})
+
 export default router;

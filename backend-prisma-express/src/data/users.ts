@@ -8,6 +8,9 @@ const Users = {
             where: {id: id}
         });
     },
+    async createUser(user: {login: string, name: string}): Promise<User> {
+        return await prisma.user.create({data: user});
+    },
     async getPostCount(user: User) {
         return await prisma.post.count({where: { user: user }});
     },
