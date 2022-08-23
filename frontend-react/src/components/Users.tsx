@@ -22,7 +22,7 @@ function Icon(props: {icon?: any, hover: string, className: string, onClick?: ()
     )
 }
 
-function Users(props: {selectedUser: User|undefined, selectUser: (user: User) => void}) {
+function Users(props: {selectedUser: User|undefined, selectUser: (user: User) => void, openUserCreateMenu: ()=>void}) {
     const {selectedUser, selectUser} = props;
     const [users, setUsers] = useState<Array<User>>([]);
     useEffect(() => {
@@ -32,7 +32,7 @@ function Users(props: {selectedUser: User|undefined, selectUser: (user: User) =>
     }, [setUsers])
     return (
         <div className="users">
-            <Icon icon="✚" className="half" hover="Create account"/>
+            <Icon icon="✚" className="half" hover="Create account" onClick={props.openUserCreateMenu}/>
             <div className='separate'></div>
             {users.map((user, i) => (
                 <Avatar key={i} user={user}
