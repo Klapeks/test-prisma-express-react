@@ -3,15 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-function Posts() {
-    // const [users, setUsers] = useState<Array<any>>([]);
-    // useEffect(() => {
-    //     console.log("Use effect: users: " + users.length);
-    //     axios.get("/api/v1/users").then((resp) => {
-    //         console.log(resp);
-    //         setUsers(resp.data);
-    //     })
-    // }, [setUsers])
+function Posts(props: {user: number}) {
     const posts = [
         "susususu",
         "susususu",
