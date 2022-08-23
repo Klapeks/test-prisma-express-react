@@ -11,20 +11,19 @@ const Users = {
     async getPostCount(user: User) {
         return await prisma.post.count({where: { user: user }});
     },
-    async newPostId(user: User) {
-        return await Users.getPostCount(user);
-    },
     async getPosts(user: User, skip?: number, count?: number) {
         if (count === undefined || count < 0) {
             return await prisma.post.findMany({
                 where: { userid: user.id },
-                skip: skip
+                skip: skip,
+                orderBy: {id: "desc"}
             });
         }
         return await prisma.post.findMany({
             where: { userid: user.id },
             take: count,
-            skip: skip
+            skip: skip,
+            orderBy: {id: "desc"}
         });
     },
 }

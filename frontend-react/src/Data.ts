@@ -4,12 +4,23 @@ import { useEffect, useState } from "react";
 interface User {
     id: number,
     login: string,
-    name: string
+    name: string,
+    lastPostId: number
+}
+interface Post {
+    id: number,
+    text: string
 }
 
+
 const Data = {
-    async getUser(id: number): Promise<User> {
+    async getUser(id: number): Promise<User|undefined> {
+        if (id === NaN || id === undefined) return undefined;
         return (await axios.get(`/api/v1/users/${id}`)).data;
+    },
+    async getPosts(user: User): Promise<Array<Post>> {
+        if (!user) return [];
+        return (await axios.get(`/api/v1/posts/${user.id}`)).data;
     }
 }
 function useUser(id: number): User | undefined {
@@ -23,5 +34,5 @@ function useUser(id: number): User | undefined {
     return user;
 }
 
-export type { User }
+export type { User, Post }
 export {Data, useUser}

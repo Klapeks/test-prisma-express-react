@@ -6,19 +6,13 @@ import Users from './components/Users';
 import { User } from './Data';
 
 function App() {
-    const [selectedUserId, setSelectedUserId] = useState(-1);
-    function setUser(user: User | number | string) {
-        if (typeof user === "string") user = parseInt(user);
-        if (typeof user === "object") user = user.id;
-        setSelectedUserId(user);
-        console.log("Select user: " + user);
-    }
+    const [selectedUser, selectUser] = useState<User>();
     return (
         <div className="container">
-            <Users selectedUser={selectedUserId} selectUser={setUser}/>
+            <Users selectedUser={selectedUser} selectUser={selectUser}/>
             <div className='right'>
-                <Profile user={selectedUserId}/>
-                <Posts user={selectedUserId}/>
+                <Profile user={selectedUser}/>
+                <Posts user={selectedUser}/>
             </div>
         </div>
     );

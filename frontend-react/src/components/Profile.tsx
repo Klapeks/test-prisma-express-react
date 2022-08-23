@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { User, useUser } from '../Data';
 import './Profile.scss'
 
-function Profile(props: {user: number}) {
-    const user = useUser(props.user);
-    console.log(`profile rerender ${props.user}`, user)
+function Profile(props: {user: User | undefined}) {
+    const user = props.user;
     return (
         <div className="profile">
             <p>{user?.name}</p>
