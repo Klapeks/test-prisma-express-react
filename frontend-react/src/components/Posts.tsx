@@ -2,6 +2,7 @@ import './Posts.scss';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Data, Post, User } from '../Data';
+import Utils from '../utils/Utils';
 
 const cache = new Map<number, Array<Post>>();
 
@@ -36,6 +37,7 @@ function Posts(props: {user?: User}) {
         if (cache.has(user.id)) setPosts(cache.get(user.id));
         else setPosts(undefined);
         Data.getPosts(user).then(p => {
+            if (Utils.equals(posts, p)) return;
             cache.set(user.id, p);
             setPosts(p);
         });
@@ -43,11 +45,11 @@ function Posts(props: {user?: User}) {
 
     if (!user) {
         return (
-            <div className="posts">Choose account</div>
+            <div className="posts"><h3>Choose account</h3></div>
         );
     }
     if (!posts){
-        return (<div className="posts">Loading....</div>);
+        return (<div className="posts"><h3>Loading....</h3></div>);
     }
     if (posts.length===0){
         return (
