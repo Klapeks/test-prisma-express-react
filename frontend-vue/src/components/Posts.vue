@@ -8,11 +8,9 @@
     <div v-else class="posts">
         <NewPost @createPost="createPost"/>
         <h3 v-if="posts.length===0" className='nopost'>No posts</h3>
-        <div v-else class="posts">
-            <div v-for="post in posts" className="post">
-                <p>{{post.id}} {{post.text}}</p>
-                <div className='delpost' @click="deletePost(post)">✖</div>
-            </div>
+        <div v-else v-for="post in posts" className="post">
+            <p>{{post.text}}</p>
+            <div className='delpost' @click="deletePost(post)">✖</div>
         </div>
     </div>
 </template>
