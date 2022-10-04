@@ -53,16 +53,12 @@ function Posts(props: {user?: User}) {
             </div>
         );
     }
-    function addPost(post: Post) {
+    async function addPost(post: Post) {
         if (!user) return;
+        post = await Data.createPost(user.id, post.text)
         const narr: Post[] = !posts ? [post] : [post, ...posts];
         setPosts(narr);
         cache.set(user.id, narr);
-
-        axios.post("/api/v1/posts/create", {
-            userid: user.id,
-            text: post.text
-        })
     }
     function deletePost(post: Post) {
         if (!user) return;
