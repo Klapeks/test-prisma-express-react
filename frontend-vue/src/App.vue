@@ -1,6 +1,7 @@
 <template>
     <div className="container">
-        <Posts/>
+        <Users :selected-user="selectedUser" @selectUser="selectUser"/>
+        <Posts :selected-user="selectedUser" @selectUser="selectUser"/>
     </div>
 </template>
 
@@ -8,16 +9,13 @@
 <script lang="ts">
 import Posts from '@/components/Posts.vue';
 import Users from '@/components/Users.vue';
-import { Data } from '@/utils/Data';
+import { Data, User } from '@/utils/Data';
 import { defineComponent } from 'vue';
 
-type User = string;
-
 interface AppData {
-    selectedUser: User | null,
+    selectedUser: User | undefined,
     users: User[]
 }
-
 export default defineComponent({
     name: 'App',
     components: {
@@ -26,7 +24,7 @@ export default defineComponent({
     },
     data(): AppData {
         return {
-            selectedUser: null,
+            selectedUser: undefined,
             users: []
         }
     },
@@ -39,7 +37,10 @@ export default defineComponent({
             this.users = [...this.users, user];
         },
         selectUser(user: User): void {
-            this.selectedUser = user;
+            console.log(user);
+            if (user) this.selectedUser = user;
+            else this.selectedUser = undefined;
+            this.$forceUpdate();
         },
     }
 });

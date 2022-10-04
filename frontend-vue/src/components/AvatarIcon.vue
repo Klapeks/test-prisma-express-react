@@ -1,0 +1,81 @@
+<template>
+    <div :class="templateClass()">
+        <p v-if="typeof icon === 'string'" :class="iconClass()">{{icon}}</p>
+        <p class="name">{{hover}}</p>
+    </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: "AvatarIcon",
+    props: {
+        icon: { type: String, required: true},
+        hover: { type: String, required: true},
+        iconType: String,
+    },
+    methods: {
+        templateClass() {return `icon ${this.iconType}`},
+        iconClass() {return `img i${this.icon.length}`}
+    }
+})
+</script>
+
+<style scoped lang="scss">
+.icon {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    background-color: yellow;
+    transition: 100ms;
+
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    p.img {
+        // background-color: red;
+        width: 100%;
+        text-align: center;
+        font-size: 40px;
+        margin-top: -5px;
+        user-select: none;
+    }
+    .name {
+        user-select: none;
+        display: none;
+        color: white;
+        --avt-bg-color: #666;
+        margin-left: 70px;
+        position: absolute;
+        padding: 5px 10px;
+        background-color: var(--avt-bg-color);
+        text-align: center;
+        cursor: default;
+        border-radius: 5px;
+        &::before {
+            content: '';
+            position: absolute;
+            margin-top: 6px;
+            margin-left: -15px;
+            transform: rotate(45deg);
+            background: var(--avt-bg-color);
+            width: 10px;
+            height: 10px;
+        }
+    }
+    border-radius: 50%;
+    &:hover { border-radius: 40%; }
+    &:active { border-radius: 35% }
+    &.active { border-radius: 30% }
+
+    &.half { border-radius: 40% }
+    &.half:hover { border-radius: 35% }
+    &.half:active { border-radius: 30% }
+
+    &:hover .name {display: block;}
+    .name:hover {display: none;}
+    
+}
+</style>

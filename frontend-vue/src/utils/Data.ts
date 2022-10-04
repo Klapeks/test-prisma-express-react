@@ -16,6 +16,9 @@ const Data = {
         if (Number.isNaN(id) || id===undefined) return undefined;
         return (await axios.get(`/api/v1/users/${id}`)).data;
     },
+    async getUsers() {
+        return (await axios.get(`/api/v1/users`)).data;
+    },
     async getPosts(user: User): Promise<Array<Post>> {
         if (!user) return [];
         return (await axios.get(`/api/v1/posts/${user.id}`)).data;

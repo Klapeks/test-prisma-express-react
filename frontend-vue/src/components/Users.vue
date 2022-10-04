@@ -1,33 +1,64 @@
 <template>
-    <form @submit.prevent="onSubmit">
-        <input 
-            :value="inputStr"
-            @input="inputString($event)"
-            type="text" 
+    <div class="users">
+        <AvatarIcon icon="✚" icon-type="half" hover="Create account" @click="openUseCreateMenu"/>
+        <div class='separate'></div>
+        <AvatarUser 
+            v-for="user in users"
+            :active="user.id === selectedUser?.id"
+            :user="user"
+            @click="selectUser(user)"
         />
-        <input type="submit" name="Submit" />
-    </form>
+    </div>
 </template>
 
 <script lang="ts">
 import { Data, User } from '@/utils/Data';
 import { defineComponent } from 'vue';
+import AvatarIcon from '@/components/AvatarIcon.vue';
+import AvatarUser from '@/components/AvatarUser.vue';
+
+interface UserData {
+    users: Array<User>,
+}
 
 export default defineComponent({
-    name: "Posts",
-    data() {
+    name: "Users",
+    components: {AvatarIcon, AvatarUser},
+    data(): UserData {
         return {
-            inputStr: ""
+            users: []
         }
     },
+    props: {
+        selectedUser: Object,
+    },
     methods: {
-        inputString(event: any) {
-            this.inputStr = event.target.value;
+        selectUser(user: User) {
+            this.$emit("selectUser", user);
         },
-        onSubmit() {
-            this.$emit("addUser", this.inputStr);
-            // props.setUser(this.inputStr)
+        openUseCreateMenu(){
+            alert("SUS");
         }
-    }
+    },
+    async mounted() {
+        this.users = await Data.getUsers();
+    },
 })
 </script>
+
+<style scoped lang="scss">
+.users {
+    width: 70px;
+    background-color: rgb(72, 56, 143);
+    display: flex;
+    flex-direction: column;
+    .separate {
+        height: 2px;
+        width: 50%;
+        background-color: #666;
+        margin: 2px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+</style>
