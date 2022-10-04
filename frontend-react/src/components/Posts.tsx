@@ -55,10 +55,10 @@ function Posts(props: {user?: User}) {
     }
     async function addPost(post: Post) {
         if (!user) return;
-        post = await Data.createPost(user.id, post.text)
         const narr: Post[] = !posts ? [post] : [post, ...posts];
         setPosts(narr);
         cache.set(user.id, narr);
+        await Data.createPost(user.id, post.text)
     }
     function deletePost(post: Post) {
         if (!user) return;

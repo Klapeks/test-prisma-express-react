@@ -25,6 +25,9 @@ const Data = {
     },
     async createPost(userid: number, text: string) {
         return (await axios.post("/api/v1/posts/create", { userid, text })).data
+    },
+    async removePost(userid: number, postid: number) {
+        return (await axios.delete(`/api/v1/posts/delete?userid=${userid}&postid=${postid}`)).data;
     }
 }
 

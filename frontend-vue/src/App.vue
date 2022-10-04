@@ -1,7 +1,7 @@
 <template>
-    <Users @addUser="selectUser"/>
-    <Posts :title="selectedUser || undefined"/>
-    
+    <div className="container">
+        <Posts/>
+    </div>
 </template>
 
 
@@ -47,24 +47,33 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
+.container {
+    margin: auto;
+    background: rgb(55, 41, 119);
+    width: 800px;
+    display: flex;
+    min-height: 100vh;
+    .right {
+        width: 100%;
+    }
+}
+</style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: rgb(43, 36, 109);
 }
 
-nav {
-    padding: 30px;
-
-    a {
-        font-weight: bold;
-        color: #2c3e50;
-
-        &.router-link-exact-active {
-            color: #42b983;
-        }
-    }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 </style>
