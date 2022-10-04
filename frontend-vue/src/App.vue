@@ -1,5 +1,5 @@
 <template>
-    <Posts />
+    <Posts title="sussy"/>
 </template>
 
 

@@ -1,6 +1,6 @@
 <template>
     <div class="posts">
-        <h4>Sussy count: {{sus}}</h4>
+        <h4>Sussy count: {{sus}} {{title}}</h4>
         <button @click="addSusCount">Sus it</button>
         <button @click="removeSusCount">No sus</button>
     </div>
@@ -22,7 +22,11 @@ export default defineComponent({
         },
         removeSusCount() {
             this.sus -= 1;
+            !!this.sus;
         }
+    },
+    props: {
+        title: String
     }
 })
 </script>
