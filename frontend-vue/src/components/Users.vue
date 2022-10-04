@@ -37,7 +37,7 @@ export default defineComponent({
             this.$emit("selectUser", user);
         },
         openUseCreateMenu(){
-            alert("SUS");
+            alert("Мне лень делать))0");
         }
     },
     async mounted() {

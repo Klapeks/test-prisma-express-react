@@ -6,9 +6,9 @@
         <h3 className='nopost'>Loading... {{selectedUser.name}}</h3>
     </div>
     <div v-else class="posts">
+        <NewPost @createPost="createPost"/>
         <h3 v-if="posts.length===0" className='nopost'>No posts</h3>
         <div v-else class="posts">
-            <NewPost @createPost="createPost"/>
             <div v-for="post in posts" className="post">
                 <p>{{post.id}} {{post.text}}</p>
                 <div className='delpost' @click="deletePost(post)">✖</div>

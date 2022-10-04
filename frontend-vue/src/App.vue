@@ -1,15 +1,19 @@
 <template>
     <div className="container">
         <Users :selected-user="selectedUser" @selectUser="selectUser"/>
-        <Posts :selected-user="selectedUser" @selectUser="selectUser"/>
+        <div class="right">
+            <Profile :selected-user="selectedUser"/>
+            <Posts :selected-user="selectedUser" @selectUser="selectUser"/>
+        </div>
     </div>
 </template>
 
 
 <script lang="ts">
+import Profile from '@/components/Profile.vue';
 import Posts from '@/components/Posts.vue';
 import Users from '@/components/Users.vue';
-import { Data, User } from '@/utils/Data';
+import { User } from '@/utils/Data';
 import { defineComponent } from 'vue';
 
 interface AppData {
@@ -19,8 +23,7 @@ interface AppData {
 export default defineComponent({
     name: 'App',
     components: {
-        Posts,
-        Users
+        Posts, Users, Profile
     },
     data(): AppData {
         return {
